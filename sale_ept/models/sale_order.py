@@ -113,14 +113,14 @@ class SaleOrder(models.Model):
         # to compute the total weight and volume of products, the data will not be stored
         # in database
         # returns -
-        for data2 in self:
+        for sale_order in self:
             total_weight = 0
             total_volume = 0
-            for data in data2.order_line_ids:
-                total_weight += data.quantity * data.product_id.weight
-                total_volume += data.quantity * data.product_id.volume
-            data2.total_weight = total_weight
-            data2.total_volume = total_volume
+            for product in sale_order.order_line_ids:
+                total_weight += product.quantity * product.product_id.weight
+                total_volume += product.quantity * product.product_id.volume
+            sale_order.total_weight = total_weight
+            sale_order.total_volume = total_volume
 
     @api.depends('order_line_ids.subtotal_without_tax')
     def _compute_order_total(self):
