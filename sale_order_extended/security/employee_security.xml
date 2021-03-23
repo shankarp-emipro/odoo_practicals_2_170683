@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="category_sale_order_extended" model="ir.module.category">
+        <field name="name">Sale Order Extended</field>
+        <field name="description">This category is for sale order extended</field>
+    </record>
+
+    <record id="group_sale_order_extended_salesperson" model="res.groups">
+        <field name="name">Sales Person</field>
+        <field name="category_id" ref="category_sale_order_extended"/>
+    </record>
+
+    <record id="group_sale_order_extended_manager" model="res.groups">
+        <field name="name">Sales Manager</field>
+        <field name="category_id" ref="category_sale_order_extended"/>
+        <field name="implied_ids" eval="[(4, ref('group_sale_order_extended_salesperson'))]"/>
+    </record>
+</odoo>

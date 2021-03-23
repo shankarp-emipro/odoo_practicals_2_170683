@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_stock_location_tree" model="ir.ui.view">
+        <field name="name">view.stock.location.tree</field>
+        <field name="model">stock.location.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="parent_id"/>
+                <field name="location_type"/>
+                <field name="is_scrap_location"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_stock_location_form" model="ir.ui.view">
+        <field name="name">view.stock.location.form</field>
+        <field name="model">stock.location.ept</field>
+        <field name="arch" type="xml">
+            <form string="View Stock Location Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                        <field name="location_type"/>
+                        <field name="is_scrap_location"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_stock_location_search" model="ir.ui.view">
+        <field name="name">view.stock.location.search</field>
+        <field name="model">stock.location.ept</field>
+        <field name="arch" type="xml">
+            <search string="View Stock Location Search">
+                <field name="name"/>
+                <field name="location_type"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_stock_location" model="ir.actions.act_window">
+        <field name="name">Stock Location</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.location.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Please enter some data</p>
+        </field>
+    </record>
+
+</odoo>

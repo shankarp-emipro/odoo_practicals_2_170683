@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="category_employee_mgmt_ept2" model="ir.module.category">
+        <field name="name">Employee mgmt</field>
+        <field name="description">This is the category is for employee mgmt</field>
+    </record>
+
+    <record id="group_employee_mgmt_user2" model="res.groups">
+        <field name="name">User - can see own leaves</field>
+        <field name="category_id" ref="category_employee_mgmt_ept2"/>
+    </record>
+
+    <record id="group_employee_mgmt_manager2" model="res.groups">
+        <field name="name">Manager - can see own and users leaves</field>
+        <field name="category_id" ref="category_employee_mgmt_ept2"/>
+        <field name="implied_ids" eval="[(4, ref('group_employee_mgmt_user2'))]"/>
+    </record>
+
+    <record id="group_employee_mgmt_department_manager2" model="res.groups">
+        <field name="name">Department Manager - can see own, manager and users leaves</field>
+        <field name="category_id" ref="category_employee_mgmt_ept2"/>
+        <field name="implied_ids" eval="[(4, ref('group_employee_mgmt_manager2'))]"/>
+    </record>
+
+    <record id="rule_employee_mgmt_employee2" model="ir.rule">
+        <field name="name">Employee - Own data</field>
+        <field name="model_id" ref="employee_mgmt_ept.model_employee_leave"/>
+        <field name="domain_force">
+            ['|','|',
+                ('employee_id.related_user_id', '=', user.id),
+                ('employee_id.manager_id.related_user_id', '=', user.id),
+                ('employee_id.department_id.department_manager_id', '=', user.id)
+            ]
+        </field>
+        <field name="active">True</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+         <field name="perm_unlink" eval="True"/>
+    </record>
+
+</odoo>

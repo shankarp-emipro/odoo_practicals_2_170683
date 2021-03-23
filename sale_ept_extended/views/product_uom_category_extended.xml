@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_product_uom_category_extended_tree" model="ir.ui.view">
+        <field name="name">view.product.uom.category.extended.tree</field>
+        <field name="model">product.uom.category.ept4</field>
+        <field name="inherit_id" ref="sale_ept.view_product_uom_category_tree4"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="uom_ids"/>
+            </field>
+            <field name="uom_ids" position="attributes">
+                <attribute name="string">UOM</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

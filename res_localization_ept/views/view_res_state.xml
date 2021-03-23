@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="view_res_state_tree" model="ir.ui.view">
+        <field name="name">view.res.state.tree</field>
+        <field name="model">res.state.ept2</field>
+        <field name="arch" type="xml">
+            <tree string="ResCountryTreeView">
+                <field name="name"/>
+                <field name="state_code"/>
+                <field name="country_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_res_state_form" model="ir.ui.view">
+        <field name="name">view.res.state.form</field>
+        <field name="model">res.state.ept2</field>
+        <field name="arch" type="xml">
+            <form string="ResStateFormView">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="state_code"/>
+                        <field name="country_id" context="{'context_view_res_state': 1}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="search_res_state" model="ir.ui.view">
+        <field name="name">search.res.state</field>
+        <field name="model">res.state.ept2</field>
+        <field name="arch" type="xml">
+            <search string="SearchResState">
+                <field name="name" filter_domain="[('state_code','ilike',self)]"/>
+<!--                <field name="state_code"/>-->
+
+                <group expand="0" string="Group by country">
+                    <filter string="Country" name="country_id" domain="[]" context="{'group_by': 'country_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_res_state" model="ir.actions.act_window">
+        <field name="name">ResState</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.state.ept2</field>
+        <field name="view_mode">tree,form</field>
+<!--        <field name="context">{'context_view_res_state': 1}</field>-->
+        <field name="help" type="html">
+            <p>Please enter some data</p>
+        </field>
+    </record>
+
+    <menuitem id="res_country_localization_submenu_states"
+              name="States"
+              parent="res_country_localization"
+              action="action_res_state"/>
+</odoo>

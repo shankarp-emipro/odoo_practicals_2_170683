@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_crm_team_tree4" model="ir.ui.view">
+        <field name="name">crm.team.tree4</field>
+        <field name="model">crm.team.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="team_leader"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_crm_team_form4" model="ir.ui.view">
+        <field name="name">crm.team.form4</field>
+        <field name="model">crm.team.ept</field>
+        <field name="arch" type="xml">
+            <form string="CRM Team Form View">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="team_leader"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_crm_team4" model="ir.actions.act_window">
+        <field name="name">CRM Team</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.team.ept</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Please enter some data</p>
+        </field>
+    </record>
+
+</odoo>

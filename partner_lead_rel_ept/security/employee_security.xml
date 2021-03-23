@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="category_partner_lead_rel_ept" model="ir.module.category">
+        <field name="name">Partner Lead</field>
+        <field name="description">This category is for partner lead rel ept</field>
+    </record>
+
+    <record id="group_salesperson_partner_lead_rel_ept" model="res.groups">
+        <field name="name">Sales Person</field>
+        <field name="category_id" ref="category_partner_lead_rel_ept"/>
+    </record>
+
+    <record id="group_sales_manager_partner_lead_rel_ept" model="res.groups">
+        <field name="name">Sales Manager</field>
+        <field name="category_id" ref="category_partner_lead_rel_ept"/>
+        <field name="implied_ids" eval="[(4, ref('group_salesperson_partner_lead_rel_ept'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_stock_inventory_tree" model="ir.ui.view">
+        <field name="name">view.stock.inventory.tree</field>
+        <field name="model">stock.inventory.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="location_id"/>
+                <field name="inventory_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_stock_inventory_form" model="ir.ui.view">
+        <field name="name">view.stock.inventory.form</field>
+        <field name="model">stock.inventory.ept</field>
+        <field name="arch" type="xml">
+            <form string="View Stock inventory Form">
+                <header>
+                    <button string="Start Inventory" name="start_inventory" type="object"
+                            class="btn-warning"/>
+                    <button string="Validate Inventory" name="validate_inventory" type="object"
+                            class="btn-success"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="inventory_date"/>
+                        <field name="location_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Inventory Line" name="inventory_line">
+                            <field name="inventory_line_ids">
+                                <tree editable="1">
+                                    <field name="product_id"/>
+                                    <field name="available_qty"/>
+                                    <field name="counted_product_qty"/>
+                                    <field name="difference"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Stock Move" name="stock_move2">
+                            <field name="stock_move_ids" readonly="True">
+                                <tree editable="1">
+                                    <field name="name"/>
+                                    <field name="product_id"/>
+                                    <field name="uom_id"/>
+                                    <field name="source_location_id"/>
+                                    <field name="destination_location_id"/>
+                                    <field name="qty_to_deliver"/>
+                                    <field name="qty_delivered"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_stock_inventory_search" model="ir.ui.view">
+        <field name="name">view.stock.inventory.search</field>
+        <field name="model">stock.inventory.ept</field>
+        <field name="arch" type="xml">
+            <search string="View Stock inventory Search">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_stock_inventory" model="ir.actions.act_window">
+        <field name="name">Stock inventory</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.inventory.ept</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Please enter some data</p>
+        </field>
+    </record>
+
+</odoo>

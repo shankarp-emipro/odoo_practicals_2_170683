@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="view_related_employee_address_tree" model="ir.ui.view">
+        <field name="name">view.related.employee.address.tree</field>
+        <field name="model">related.employee.address</field>
+        <field name="arch" type="xml">
+            <tree string="Related Employee Address Tree">
+                <field name="name"/>
+                <field name="contact_number"/>
+                <field name="street1"/>
+                <field name="street2"/>
+                <field name="city"/>
+                <field name="contact_relation_id"/>
+                <field name="contact_relation_occupation_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_related_employee_address_form" model="ir.ui.view">
+        <field name="name">view.related.employee.address.form</field>
+        <field name="model">related.employee.address</field>
+        <field name="arch" type="xml">
+            <form string="Related Employee Address Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="contact_number"/>
+                        <field name="street1"/>
+                        <field name="street2"/>
+                        <field name="city"/>
+                        <field name="contact_relation_id"/>
+                        <field name="contact_relation_occupation_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_related_employee_address" model="ir.actions.act_window">
+        <field name="name">Related Employee Address</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">related.employee.address</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Enter some data</p>
+        </field>
+    </record>
+
+</odoo>

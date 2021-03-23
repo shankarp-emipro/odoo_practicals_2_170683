@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <menuitem id="my_sale_root4"
+              name="My Sale2"
+              web_icon="sale_ept,static/src/img/icon.jpeg"/>
+
+    <menuitem id="product_category_main_menu4"
+              name="Category"
+              parent="my_sale_root4"/>
+
+    <menuitem id="product_category_sub_menu_product_category4"
+              name="Product Category"
+              parent="product_category_main_menu4"
+              action="action_product_category4"/>
+
+
+    <menuitem id="product_uom_category_main_menu4"
+              name="UOM"
+              parent="my_sale_root4"/>
+
+    <menuitem id="product_uom_category_sub_menu_uom_category4"
+              name="UOM Category"
+              parent="product_uom_category_main_menu4"
+              action="action_view_product_uom_category4"/>
+
+    <menuitem id="product_uom_sub_menu_product_uom4"
+              name="Product UOM"
+              parent="product_uom_category_main_menu4"
+              action="action_view_product_uom4"/>
+
+
+    <menuitem id="product_main_menu_sales4"
+              name="Sales"
+              parent="my_sale_root4"/>
+
+    <menuitem id="product_sub_menu_products4"
+              name="Products"
+              parent="product_main_menu_sales4"
+              action="action_view_product4"/>
+
+
+    <menuitem id="res_partner_sub_menu_customers4"
+              name="Customer"
+              parent="product_main_menu_sales4"
+              action="action_view_res_partner4"/>
+
+
+    <menuitem id="sale_order_sub_menu_orders"
+              name="Orders"
+              parent="product_main_menu_sales4"
+              action="action_view_sale_order4"/>
+
+
+    <menuitem id="crm_main_menu"
+              name="CRM"
+              parent="my_sale_root4"/>
+
+    <menuitem id="crm_sub_menu_team"
+              name="Team"
+              parent="crm_main_menu"
+              action="action_view_crm_team4"/>
+
+    <menuitem id="crm_sub_menu_lead"
+              name="Lead"
+              parent="crm_main_menu"
+              action="action_view_crm_lead4"/>
+
+    <menuitem id="main_menu_stock"
+              name="Stock"
+              parent="my_sale_root4"/>
+
+    <menuitem id="stock_sub_menu_stock_warehouse"
+              name="Stock Warehouse"
+              parent="main_menu_stock"
+              action="action_stock_warehouse"/>
+
+    <menuitem id="stock_sub_menu_stock_location"
+              name="Stock Location"
+              parent="main_menu_stock"
+              action="action_stock_location"/>
+
+    <menuitem id="stock_sub_menu_stock_picking"
+              name="Stock Picking"
+              parent="main_menu_stock"
+              action="action_stock_picking"/>
+
+    <menuitem id="stock_sub_menu_stock_inventory"
+              name="Stock Inventory"
+              parent="main_menu_stock"
+              action="action_stock_inventory"/>
+
+
+    <menuitem id="main_menu_tax"
+              name="Tax"
+              parent="my_sale_root4"/>
+
+    <menuitem id="sub_menu_account_tax"
+              name="Account Tax"
+              parent="main_menu_tax"
+              action="view_account_type_action"/>
+
+</odoo>

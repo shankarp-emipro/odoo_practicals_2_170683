@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_contact_relation_manager,hr.employee.contact.relation.manager,model_employee_contact_relation,hr.group_hr_manager,1,1,1,1
+access_employee_contact_occupation_manager,hr.employee.contact.occupation.manager,model_employee_contact_occupation,hr.group_hr_manager,1,1,1,1
+access_related_employee_address_manager,hr.related.employee.address.manager,model_related_employee_address,hr.group_hr_manager,1,1,1,1

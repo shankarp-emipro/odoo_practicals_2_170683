@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="localization_ept_category" model="ir.module.category">
+        <field name="name">Localization</field>
+        <field name="description">This category is for localization</field>
+    </record>
+
+    <record id="group_localization_ept" model="res.groups">
+        <field name="name">Users</field>
+        <field name="category_id" ref="localization_ept_category"/>
+    </record>
+</odoo>

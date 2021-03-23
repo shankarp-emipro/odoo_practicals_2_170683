@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="tree_view_employee" model="ir.ui.view">
+        <field name="name">tree.view.employee</field>
+        <field name="model">employee.ept2</field>
+        <field name="arch" type="xml">
+            <tree string="EmployeeTreeView">
+                <field name="name"/>
+                <field name="job_position"/>
+                <field name="salary"/>
+                <field name="hire_date"/>
+                <field name="gender"/>
+                <field name="job_type"/>
+                <field name="is_manager"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="form_view_employee" model="ir.ui.view">
+        <field name="name">form.view.employee</field>
+        <field name="model">employee.ept2</field>
+        <field name="arch" type="xml">
+            <tree string="EmployeeTreeView">
+                <field name="name"/>
+                <field name="job_position"/>
+                <field name="salary"/>
+                <field name="hire_date"/>
+                <field name="gender"/>
+                <field name="job_type"/>
+                <field name="is_manager"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="search_view_employee" model="ir.ui.view">
+        <field name="name">search.view.employee</field>
+        <field name="model">employee.ept2</field>
+        <field name="arch" type="xml">
+            <search string="SearchEmployee">
+                <field name="name"/>
+                <field name="job_position"/>
+                <field name="department_id"/>
+
+                <filter string="Job - Permanent" name="job_type_permanent" domain="[('job_type', '=', 'Permanent')]" help="Filter permanent job"/>
+                <filter string="Job - Ad Hoc" name="job_type_ad_hoc" domain="[('job_type', '=', 'Ad Hoc')]" help="Filter ad hoc job"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Department Name" name="group_by_department_name" domain="[]" context="{'group_by': 'department_id'}"/>
+                    <filter string="Job Type" name="group_by_job_type" domain="[]" context="{'group_by': 'job_type'}"/>
+                    <filter string="Gender" name="group_by_gender" domain="[]" context="{'group_by': 'gender'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_view_employee" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.ept2</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>This window is for employee data</p>
+        </field>
+    </record>
+
+    <menuitem id="submenu_employee"
+              name="Employees"
+              parent="menu_department_employee"
+              action="action_view_employee"/>
+</odoo>

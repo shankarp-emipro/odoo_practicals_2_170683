@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="tree_view_department" model="ir.ui.view">
+        <field name="name">tree.view.department</field>
+        <field name="model">employee.department.ept</field>
+        <field name="arch" type="xml">
+            <tree string="DepartmentTreeView">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="form_view_department" model="ir.ui.view">
+        <field name="name">form.view.department</field>
+        <field name="model">employee.department.ept</field>
+        <field name="arch" type="xml">
+            <tree string="DepartmentTreeView">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="search_view_department" model="ir.ui.view">
+        <field name="name">search.view.department</field>
+        <field name="model">employee.department.ept</field>
+        <field name="arch" type="xml">
+            <search string="SearchDepartment">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_view_department" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.department.ept</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>This window is for departmental data</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_department_root"
+              name="HR"/>
+
+    <menuitem id="menu_department_employee"
+              name="Employees"
+              parent="menu_department_root"/>
+
+    <menuitem id="submenu_department"
+              name="Department"
+              parent="menu_department_employee"
+              action="action_view_department"/>
+</odoo>

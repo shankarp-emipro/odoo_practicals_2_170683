@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="view_employee_contact_relation_tree" model="ir.ui.view">
+        <field name="name">view.employee.contact.relation.tree</field>
+        <field name="model">employee.contact.relation</field>
+        <field name="arch" type="xml">
+            <tree string="Contact Relation Tree">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_employee_contact_relation_form" model="ir.ui.view">
+        <field name="name">view.employee.contact.relation.form</field>
+        <field name="model">employee.contact.relation</field>
+        <field name="arch" type="xml">
+            <form string="Contact Relation Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_employee_contact_relation" model="ir.actions.act_window">
+        <field name="name">Contact Relation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.contact.relation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Enter some data</p>
+        </field>
+    </record>
+
+</odoo>

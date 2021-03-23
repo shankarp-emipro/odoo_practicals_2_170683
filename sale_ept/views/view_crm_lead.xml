@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<odoo>
+    <record id="view_crm_lead_tree4" model="ir.ui.view">
+        <field name="name">crm.lead.tree4</field>
+        <field name="model">crm.lead.ept2</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state == 'Lost'" decoration-success="state == 'Won'"
+                  decoration-warning="state == 'Proposition'">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="expected_revenue"/>
+                <field name="sales_person"/>
+                <field name="sales_team"/>
+                <field name="campaign"/>
+                <field name="channel"/>
+                <field name="state"/>
+                <field name="next_follow_up_date"/>
+                <field name="won_date"/>
+                <field name="lost_reason"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_form4" model="ir.ui.view">
+        <field name="name">crm.lead.form4</field>
+        <field name="model">crm.lead.ept2</field>
+        <field name="arch" type="xml">
+            <form string="CRM Form View">
+                <header>
+                    <button string="Mark as won" name="mark_as_won" type="object" class="btn-success"/>
+                    <button string="Mark as lost" name="mark_as_lost" type="object" class="btn-danger"/>
+                    <button string="Generate Sales Quotation" name="generate_sales_quotation" type="object"
+                            class="btn-warning"
+                            attrs="{'invisible': [('state', '!=', 'Won')]}"/>
+                    <button string="Create Customer" name="create_customer" type="object"
+                            class="btn-info"
+                            attrs="{'invisible': [('state', '!=', 'Won')]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="expected_revenue"/>
+                        <field name="sales_person"/>
+                        <field name="sales_team"/>
+                        <field name="campaign"/>
+                        <field name="channel"/>
+                        <field name="next_follow_up_date"/>
+                        <field name="won_date"
+                               attrs="{'invisible': [('state', '!=', 'Won')],'required': [('state','=','Won')]}"/>
+                        <field name="lost_reason"
+                               attrs="{'invisible': [('state', '!=', 'Lost')], 'required': [('state','=','Lost')]}"/>
+                        <field name="partner_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Lead Lines" name="lead_lines">
+                            <field name="lead_line_ids">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="expected_sell_qty"/>
+                                    <field name="uom_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="filter_crm_lead4" model="ir.ui.view">
+        <field name="name">crm.lead.select4</field>
+        <field name="model">crm.lead.ept2</field>
+        <field name="arch" type="xml">
+            <search string="Search CRM Lead">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Channel" name="group_by_name" domain="[]" context="{'group_by': 'channel'}"/>
+                </group>
+
+                <filter string="Today" name="today_followup"
+                        domain="[('next_follow_up_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_view_crm_lead4" model="ir.actions.act_window">
+        <field name="name">CRM Lead</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.lead.ept2</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Please enter some data</p>
+        </field>
+    </record>
+
+</odoo>

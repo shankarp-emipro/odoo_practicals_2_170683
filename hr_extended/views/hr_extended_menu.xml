@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <menuitem id="hr_menu_configuration_contact_relation"
+              name="Contact Relation"
+              parent="hr.menu_human_resources_configuration"
+              action="action_employee_contact_relation"/>
+
+    <menuitem id="hr_menu_configuration_contact_occupation"
+              name="Contact Occupation"
+              parent="hr.menu_human_resources_configuration"
+              action="action_employee_contact_occupation"/>
+
+    <menuitem id="hr_menu_configuration_related_employee_address"
+              name="Employee Address"
+              parent="hr.menu_human_resources_configuration"
+              sequence="103"
+              action="action_related_employee_address"/>
+</odoo>

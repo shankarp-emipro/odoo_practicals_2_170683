@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="wizard_form_sales_info_update" model="ir.ui.view">
+        <field name="name">wizard.form.sales.info.update</field>
+        <field name="model">sales.info.update</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="team_id"/>
+                        <field name="user_id"/>
+                        <field name="team_new_id"/>
+                        <field name="user_new_id"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Update" name="update_sales_info" type="object"
+                            class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sales_info_update" model="ir.actions.act_window">
+        <field name="name">Sales Info Update</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sales.info.update</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_form_sales_info_update"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>

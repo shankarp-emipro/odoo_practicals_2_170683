@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <menuitem id="root_partner_lead_rel_ept"
+              name="Partner Lead"/>
+
+    <menuitem id="main_menu_customer_details"
+              name="Customer Details"
+              parent="root_partner_lead_rel_ept"/>
+
+    <menuitem id="sub_menu_my_customer_details"
+              name="My Customer Details"
+              parent="main_menu_customer_details"
+              action="action_partner_lead_rel"/>
+
+
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="view_product_uom_category_tree4" model="ir.ui.view">
+        <field name="name">view.product.uom.category.tree4</field>
+        <field name="model">product.uom.category.ept4</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_uom_category_form4" model="ir.ui.view">
+        <field name="name">view.product.uom.category.form4</field>
+        <field name="model">product.uom.category.ept4</field>
+        <field name="arch" type="xml">
+            <form string="ProductUomCategoryFormView">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="search_product_uom_category4" model="ir.ui.view">
+        <field name="name">search.product.uom.category4</field>
+        <field name="model">product.uom.category.ept4</field>
+        <field name="arch" type="xml">
+            <search string="ProductUomCategorySearchView">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_view_product_uom_category4" model="ir.actions.act_window">
+        <field name="name">Product UOM Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.uom.category.ept4</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Please enter some data</p>
+        </field>
+    </record>
+
+</odoo>
