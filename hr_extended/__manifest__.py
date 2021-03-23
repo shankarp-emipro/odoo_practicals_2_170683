@@ -7,7 +7,7 @@
     """,
     'summary': 'To add extra fields in hr.employee model and to add some elements in view',
     'author': 'Emipro Technologies (P) Ltd.',
-    'depends': ['project','hr'],
+    'depends': ['project', 'hr'],
     'data': [
         'security/ir.model.access.csv',
         'views/related_employee_address.xml',

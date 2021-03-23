@@ -19,5 +19,6 @@ class HrEmployee(models.Model):
         displaying tag lines.
         :return: -
         """
-        tag_ids = self.env['project.task'].search([('user_id', '=', self.user_id.id), ('tag_ids.id', '!=', False)]).tag_ids.ids
+        tag_ids = self.env['project.task'].search(
+            [('user_id', '=', self.user_id.id), ('tag_ids.id', '!=', False)]).tag_ids.ids
         self.tag_ids = tag_ids if tag_ids else False

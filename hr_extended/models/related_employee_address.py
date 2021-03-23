@@ -11,5 +11,6 @@ class RelatedEmployeeAddress(models.Model):
     city = fields.Char(string="City", help="City")
     contact_relation_id = fields.Many2one(string="Contact Relation", help="Contact relation id",
                                           comodel_name="employee.contact.relation")
-    contact_relation_occupation_id = fields.Many2one(string="Contact Occupation", help="Contact relation occupation id",
+    contact_relation_occupation_id = fields.Many2one(string="Contact Occupation",
+                                                     help="Contact relation occupation id",
                                                      comodel_name="employee.contact.occupation")
