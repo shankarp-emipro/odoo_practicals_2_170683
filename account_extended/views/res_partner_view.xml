@@ -8,6 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="/form/*" position="before">
                 <header>
+                    <button string="Register Payment" name="register_payment" type="object"
+                            class="oe_highlight"/>
                     <button string="Validate Invoices" name="validate_invoices" type="object"/>
                 </header>
             </xpath>
