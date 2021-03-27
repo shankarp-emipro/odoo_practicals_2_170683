@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem id="main_menu_sales_commission"
+              name="Commission"
+              parent="sale.sale_menu_root"/>
+
+    <menuitem id="sub_menu_sales_commission_worksheet"
+              name="Worksheet"
+              parent="main_menu_sales_commission"
+              action="sales_commission_ept.action_sales_commission_ept"/>
+
+    <menuitem id="sub_menu_sales_commission_commission_lines"
+              name="Commission Lines"
+              parent="main_menu_sales_commission"
+              action="sales_commission_ept.action_sales_commission_line"/>
+
+    <menuitem id="sub_menu_my_settings_in_configuration"
+              name="Commission Configuration"
+              parent="sale.menu_sale_config"
+              action="sales_commission_ept.action_sale_config_commission_configuration"/>
+
+</odoo>

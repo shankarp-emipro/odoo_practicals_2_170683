@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_sales_commission_line_tree" model="ir.ui.view">
+        <field name="name">view.sales.commission.line.tree</field>
+        <field name="model">sales.commission.line</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="status == 'Paid'">
+                <field name="commission_date"/>
+                <field name="source_document"/>
+                <field name="amount" sum="Total Commission"/>
+                <field name="status"/>
+                <field name="is_paid_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sales_commission_line_search" model="ir.ui.view">
+        <field name="name">view.sales.commission.line.search</field>
+        <field name="model">sales.commission.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="source_document"/>
+                <group expand="0" string="Group By">
+                    <filter string="Users" name="group_by_user_id" domain="[]"
+                            context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sales_commission_line" model="ir.actions.act_window">
+        <field name="name">Commission Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sales.commission.line</field>
+        <field name="view_mode">tree,search</field>
+        <field name="context">
+            {'search_default_group_by_user_id':1}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Please enter some data</p>
+        </field>
+    </record>
+
+</odoo>

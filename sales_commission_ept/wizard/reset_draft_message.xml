@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="wizard_reset_draft_message_form" model="ir.ui.view">
+        <field name="name">wizard.reset.draft.message.form</field>
+        <field name="model">reset.draft.message</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="wizard_draft_reason"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Reset To Draft" name="reset_to_draft" type="object"
+                            class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_reset_draft_message_wizard" model="ir.actions.act_window">
+        <field name="name">Reset Draft Reason</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">reset.draft.message</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_reset_draft_message_form"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_sales_commission_ept"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>

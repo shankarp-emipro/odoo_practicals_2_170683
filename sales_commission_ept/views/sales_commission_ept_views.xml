@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_sales_commission_ept_tree" model="ir.ui.view">
+        <field name="name">view.sales.commission.ept.tree</field>
+        <field name="model">sales.commission.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="paid_date"/>
+                <field name="total_commission"/>
+                <field name="status"/>
+                <field name="commission_lines_ids"/>
+                <field name="product_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sales_commission_ept_form" model="ir.ui.view">
+        <field name="name">view.sales.commission.ept.form</field>
+        <field name="model">sales.commission.ept</field>
+        <field name="arch" type="xml">
+            <form string="Sales Commission Form">
+                <header>
+                    <button string="Calculate Commission" name="calculate_commission"
+                            type="object"/>
+                    <button string="Paid Commission" name="paid_commission"
+                            type="object"/>
+                    <button string="Reset To Draft" name="reset_to_draft"
+                            type="object"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="user_id"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                        <group>
+                            <field name="paid_date"/>
+                            <field name="total_commission"/>
+                            <field name="product_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Commission Lines" name="commission_lines">
+                            <field name="commission_lines_ids">
+                                <tree>
+                                    <field name="commission_date"/>
+                                    <field name="source_document"/>
+                                    <field name="amount" sum="Total Commission"/>
+                                    <field name="status"/>
+                                    <field name="is_paid_amount"/>
+                                </tree>
+                                <form string="Commission Line Form">
+                                    <group>
+                                        <group>
+                                            <field name="commission_date"/>
+                                            <field name="partner_id"/>
+                                            <field name="user_id"/>
+                                            <field name="source_document"/>
+                                        </group>
+                                        <group>
+                                            <field name="amount"/>
+                                            <field name="status"/>
+                                            <field name="is_paid_amount"/>
+                                            <field name="sale_commission_id"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sales_commission_ept_search" model="ir.ui.view">
+        <field name="name">view.sales.commission.ept.search</field>
+        <field name="model">sales.commission.ept</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Users" name="group_by_user_id" domain="[]"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter string="Status" name="group_by_status" domain="[]"
+                            context="{'group_by': 'status'}"/>
+                    <filter string="Product" name="group_by_product_id" domain="[]"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter string="Commission Date" name="group_by_create_date" domain="[]"
+                            context="{'group_by': 'create_date'}"/>
+                </group>
+
+                <filter name="current_month_commission" string="Current Month Commission" domain="[
+                    ('to_date', '&gt;=', (context_today()).strftime('%Y-%m-01')),
+                    ('from_date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                <filter name="last_month_commission" string="Last Month Commission" domain="[
+                    ('to_date', '&lt;', (context_today()).strftime('%Y-%m-01')),
+                    ('from_date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                <filter name="current_year_commission" string="Current Year Commission" domain="[
+                                    ('to_date', '&lt;=', (context_today() + relativedelta(years=1)).strftime('%Y-%m-01')),
+                                    ('from_date', '&gt;', (context_today() - relativedelta(years=1)).strftime('%Y-%m-01'))]"/>
+                <filter name="last_15_days_commission" string="Last 15 Days Commission"
+                        domain="[('from_date', '&gt;=', (context_today() + relativedelta(days=-15)).strftime('%Y-%m-01')),
+                        ('from_date', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="today_commission" string="Today's Commission"
+                        domain="[('to_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="paid_commission" string="Paid Commission"
+                        domain="[('status','=','Paid')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_sales_commission_ept_kanban" model="ir.ui.view">
+        <field name="name">view.sales.commission.ept.kanban</field>
+        <field name="model">sales.commission.ept</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="total_commission"/>
+                <field name="status"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li>
+                                        <span>Name:
+                                            <field name="user_id"/>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>From date:
+                                            <field name="from_date"/>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>To date:
+                                            <field name="to_date"/>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>Total commission:
+                                            <field name="total_commission"/>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="status" widget="label_selection"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_sales_commission_ept" model="ir.actions.act_window">
+        <field name="name">Commission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sales.commission.ept</field>
+        <field name="view_mode">tree,form,kanban,search</field>
+        <field name="context">
+            {'search_default_group_by_user_id':1,'search_default_group_by_status':1}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Please enter some data</p>
+        </field>
+    </record>
+
+</odoo>

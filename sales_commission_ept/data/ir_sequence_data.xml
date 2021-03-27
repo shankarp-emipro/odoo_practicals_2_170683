@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_sales_commission_ept" model="ir.sequence">
+            <field name="name">Sequence Sales Commission EPT</field>
+            <field name="code">sales.commission.ept</field>
+            <field name="prefix">SCO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>
