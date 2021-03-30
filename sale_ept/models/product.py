@@ -31,17 +31,11 @@ class Product(models.Model):
         # to compute product stock by iterating each warehouse and every stock location of
         # each warehouse
         # returns -
-        warehouses = self.env['stock.warehouse.ept'].search([])
-        stock_location_list = []
-
-        for warehouse in warehouses:
-            stock_location_list.append(warehouse.stock_location_id.id)
-
+        stock_location_list = self.env['stock.warehouse.ept'].search([]).mapped(
+            lambda warehouse: warehouse.stock_location_id.id)
         passed_location_id = self.env.context.get('location_id')
         for product in self:
             product_stock = 0
-            stock_locations_out = None
-            stock_locations_in = None
             if passed_location_id:
                 stock_locations_out = self.env['stock.move.ept'].search(
                     [('source_location_id', '=', passed_location_id),
