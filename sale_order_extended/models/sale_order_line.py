@@ -16,6 +16,7 @@ class SaleOrderLine(models.Model):
                                 compute="_compute_profit_value_margin")
     cost_price = fields.Float(string="Cost price", help="Cost price (standard price)",
                               digits=(6, 2), compute="_compute_get_cost_price", store=True)
+    tax_id = fields.Many2one(string="Tax", help="Tax", comodel_name="account.tax")
 
     @api.depends('product_id')
     def _compute_get_cost_price(self):
