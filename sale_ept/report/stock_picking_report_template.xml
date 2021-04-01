@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <template id="report_stock_picking_ept_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <t t-foreach="stock_moves" t-as="move_line">
+                    <u>
+                        <p t-esc="move_line"/>
+                    </u>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Picking</th>
+                                <th>
+                                    <u>Quantity</u>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="total_quantity" t-value="0"/>
+                            <t t-foreach="stock_moves[move_line]"
+                               t-as="destination_location_and_quantity_dict">
+                                <t t-set="total_quantity"
+                                   t-value="total_quantity + destination_location_and_quantity_dict['qty_to_deliver']"/>
+                                <tr>
+                                    <td>
+                                        <span t-esc="destination_location_and_quantity_dict['source_location_id']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="int(destination_location_and_quantity_dict['qty_to_deliver'])"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <b>Total:</b>
+                                    <span t-esc="int(total_quantity)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_stock_picking_ept">
+        <t t-call="web.html_container">
+            <t t-call="sale_ept.report_stock_picking_ept_document"/>
+        </t>
+    </template>
+</odoo>

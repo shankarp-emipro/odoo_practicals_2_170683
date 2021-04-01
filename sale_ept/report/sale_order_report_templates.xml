@@ -9,6 +9,88 @@
                     <div t-field="doc.customer_id.street1"/>
                     <div t-field="doc.customer_id.street2"/>
                 </t>
+                <h2 class="mt16">Order #
+                    <span t-field="doc.name"/>
+                </h2>
+                <div class="row mt32 mb32" id="informations">
+                    <div class="col-auto col-3 mw-100 mb-2">
+                        <strong>Order Date:</strong>
+                        <p class="m-0" t-field="doc.sale_order_date"/>
+                    </div>
+                    <div class="col-auto col-3 mw-100 mb-2">
+                        <strong>Salesperson:</strong>
+                        <p class="m-0" t-field="doc.salesperson_id"/>
+                    </div>
+                </div>
+                <table class="table table-sm o_main_table">
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Taxes</th>
+                            <th>Amount</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doc.order_line_ids" t-as="order_line">
+                            <tr>
+                                <td>
+                                    <span t-field="order_line.product_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="order_line.quantity"/>
+                                </td>
+                                <td>
+                                    <span t-field="order_line.unit_price"/>
+                                </td>
+                                <td>
+                                    <span t-field="order_line.tax_ids"/>
+                                </td>
+                                <td>
+                                    <span t-field="order_line.subtotal_without_tax"/>
+                                </td>
+                                <td>
+                                    <span t-field="order_line.subtotal_tax"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <div class="clearfix" name="so_total_summary">
+                    <div class="row" name="total">
+                        <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                            <table class="table table-sm">
+                                <tr class="border-black o_subtotal">
+                                    <td>
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.total_untaxed_amount"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Tax</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.total_tax"/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black o_total">
+                                    <td>
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.total_amount"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </t>
     </template>

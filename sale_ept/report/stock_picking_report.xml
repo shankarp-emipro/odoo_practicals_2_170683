@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="action_report_stock_picking_ept" model="ir.actions.report">
+        <field name="name">Stock Picking</field>
+        <field name="model">stock.picking.ept</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sale_ept.report_stock_picking_ept</field>
+        <field name="print_report_name">'Report - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_stock_picking_ept"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
