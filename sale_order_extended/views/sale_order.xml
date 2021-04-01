@@ -21,6 +21,9 @@
                 <field name="profit_value"/>
                 <field name="profit_margin"/>
             </field>
+            <xpath expr="//sheet//div[@name='button_box']" position="inside">
+                <button name="get_order_lines" string="Order Lines" type="object" icon="fa-exchange"/>
+            </xpath>
         </field>
     </record>
 </odoo>

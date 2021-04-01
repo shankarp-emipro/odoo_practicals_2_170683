@@ -19,6 +19,7 @@
         'views/product_template_view.xml',
         'views/res_company_view.xml',
         'wizard/wizard_sales_info_update.xml',
+        'views/order_lines_views.xml',
         'views/res_config_settings_view.xml'
     ],
     'demo': [],

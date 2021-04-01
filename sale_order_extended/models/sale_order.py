@@ -109,3 +109,20 @@ class SaleOrder(models.Model):
                              'default_user_new_id': self.user_id.id,
                              'default_team_new_id': self.user_id.sale_team_id.id}
         return action
+
+    def get_order_lines(self):
+        # To get the order lines of all the sale order which are reserved in stock picking
+        # returns - action of list view of sale.order.line
+        products = self.order_line.product_id.ids
+
+        orders_lines = self.env['sale.order.line'].search([('product_id', 'in', products)]).ids
+
+        moves = self.env['stock.move'].search(
+            [('sale_line_id', 'in', orders_lines), ('state', '=', 'assigned'),
+             ('state', 'not in', ['cancel', 'done'])])
+
+        action = self.env['ir.actions.act_window']._for_xml_id(
+            "sale_order_extended.action_view_sale_order_lines")
+
+        action['domain'] = [('id', 'in', moves.sale_line_id.ids)]
+        return action
