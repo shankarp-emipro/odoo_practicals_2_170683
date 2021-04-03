@@ -14,27 +14,64 @@ class SaleOrder(models.Model):
                                       compute="_compute_order_profit_value_margin")
     product_tmpl_ids = fields.Many2many(string="Product Template", help="Product template ids",
                                         comodel_name="product.template")
+    is_all_picking_completed = fields.Boolean(string="All picking completed",
+                                              help="Is all picking completed",
+                                              compute="_compute_is_all_picking_completed",
+                                              search="_search_is_all_picking_completed")
+
+    def _compute_is_all_picking_completed(self):
+        # Checks the state of all pickings of all sale order and if any picking state is false then
+        # assigns the is_all_picking_completed to false otherwise true
+        # returns -
+        for order in self:
+            if False not in order.picking_ids.mapped(
+                    lambda picking: picking.state == 'done' or picking.state == 'cancel'):
+                order.is_all_picking_completed = True
+            else:
+                order.is_all_picking_completed = False
+
+    def _search_is_all_picking_completed(self, operator, value):
+        # When "completed picking" filter is applied then this method is called and list of
+        # sale orders are gathered of which stock picking state is either cancel or done.
+        # returns - returns the list of id of the sale_order.
+        # TODO: This can be achieved by sql query
+        # query = "select s.sale_id from (select sale_id from stock_picking where sale_id is not" \
+        #         " NULL) as s join stock_picking" \
+        #         " as p on s.sale_id = p.id where p.state in ('done','cancel')"
+        # self.env.cr.execute(query)
+        # sale_orders = self.env.cr.fetchall()
+
+        sale_orders = []
+        for order in self.env['sale.order'].search([('picking_ids', '!=', False)]):
+            if not order.picking_ids.filtered(
+                    lambda picking: picking.state not in ['done', 'cancel']):
+                sale_orders.append(order.id)
+        return [('id', 'in', sale_orders)]
 
     @api.onchange('product_tmpl_ids')
     def _onchange_product_template(self):
         # When the product template is changed product variants of that template is set in
         # oder line
         # :returns -
-        template_ids = self.product_tmpl_ids
-        template_id = template_ids[-1] if template_ids else False
+        for template in self.product_tmpl_ids:
+            for p_variant in template.product_variant_ids:
+                if p_variant.id.origin not in self.order_line.product_id.ids:
+                    for variant in template.product_variant_ids:
+                        self.write({
+                            'order_line': [(0, 0, {
+                                'name': variant.name,
+                                'price_unit': variant.lst_price,
+                                'product_uom_qty': 1.0,
+                                'customer_lead': 0.0,
+                                'product_id': variant.id.origin
+                            })]
+                        })
 
-        # fixme: AttributeError: 'bool' object has no attribute 'product_variant_ids', saleorder create
-        # if set(template_id.product_variant_ids.ids).issubset(self.order_line.product_id.ids):
-        #     for variant in self.env['product.product'].search([('product_tmpl_id', '=', template_id.id.origin)]):
-        #         self.write({
-        #             'order_line': [(0, 0, {
-        #                 'name': variant.name,
-        #                 'price_unit': variant.lst_price,
-        #                 'product_uom_qty': 1.0,
-        #                 'customer_lead': 0.0,
-        #                 'product_id': variant.id
-        #             })]
-        #         })
+        # templates = self.product_tmpl_ids.ids
+        # for product in self.order_line.product_id:
+        #     if product.product_tmpl_id.id not in templates:
+        #         order = self.env['sale.order.line'].search([('order_id', '=', self.id)])
+        #         order.order_line.product_id
 
     def _compute_order_profit_value_margin(self):
         # To calculate the order profit value and margin

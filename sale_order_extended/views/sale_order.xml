@@ -22,7 +22,23 @@
                 <field name="profit_margin"/>
             </field>
             <xpath expr="//sheet//div[@name='button_box']" position="inside">
-                <button name="get_order_lines" string="Order Lines" type="object" icon="fa-exchange"/>
+                <button name="get_order_lines" string="Order Lines" type="object"
+                        icon="fa-exchange"/>
+            </xpath>
+            <field name="sale_order_template_id" position="after">
+                <field name="is_all_picking_completed"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sale_order_extended_search" model="ir.ui.view">
+        <field name="name">view.sale.order.extended.search</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search//filter[@name='my_sale_orders_filter']" position="before">
+                <filter name="filter_is_all_picking_completed" string="Completed picking"
+                        domain="[('is_all_picking_completed','=',True)]"/>
             </xpath>
         </field>
     </record>
